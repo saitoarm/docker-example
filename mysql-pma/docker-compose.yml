@@ -1,0 +1,34 @@
+services:
+  mysql:
+    image: mysql:9.0.1
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: myroot
+      MYSQL_DATABASE: 2024_SE
+      MYSQL_USER: student
+      MYSQL_PASSWORD: mystudent
+    ports:
+      - "3318:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - network1
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: phpmyadmin-container
+    restart: always
+    environment:
+      PMA_HOST: mysql-container  # ใช้ชื่อ container ของ MySQL เพื่อเชื่อมต่อ
+    ports:
+      - "7799:80"  # เข้าถึง phpMyAdmin ผ่าน http://localhost:7799
+    networks:
+      - network1
+
+volumes:
+  db_data:  # เก็บข้อมูลของ MySQL
+
+networks:
+  network1:
+    driver: bridge

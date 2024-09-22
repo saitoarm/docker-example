@@ -1,0 +1,7 @@
+services:
+ myphp:
+    build:
+      context: .
+    image: demophp:2.0
+    ports:
+      - "7887:80"
